@@ -1,0 +1,85 @@
+﻿@model RxWebApp.ViewModels.OrdersViewModel
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="text-center col-lg-12">
+            <h2>Orders</h2>
+            @using (Html.BeginForm("Create", "Orders", FormMethod.Post))
+            {
+                <form method="post">
+                    <fieldset class="form-group">
+                        <input name="Subject" type="text" placeholder="Subject"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input name="Location" type="text" placeholder="Location"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input name="Employee" type="text" placeholder="Employee"/>
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <input name="Outcome" type="text" placeholder="Outcome"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input name="DiscussionDate" type="text" placeholder="Date"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg" value="Submit">Submit</button>
+                    </fieldset>
+                </form>
+            }
+        </div>
+    </div>
+  
+</div>
+@if (Model != null && Model.AllOrders.Count != 0)
+{
+    <table class="table">
+    @foreach (var item in Model.AllOrders)
+    {
+        <thead>List of Discussions</thead>
+        <tr>
+            <th>Subject</th>
+            <th>Location</th>
+            <th>Employee</th>
+            <th>Outcome</th>
+            <th>Discussion Date</th>
+        </tr>
+        <tr>
+            
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Outcome)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscussionDate)
+            </td>
+        </tr>
+    }
+    </table>
+}
+else
+{
+    <div style="padding: 0 0 20px 15px;">
+        No current orders
+    </div>
+}
