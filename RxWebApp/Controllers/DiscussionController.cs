@@ -13,9 +13,9 @@ using RxWebApp.ViewModels;
 
 namespace RxWebApp.Controllers
 {
-    public class OrdersController : Controller
+    public class DiscussionController : Controller
     {
-        private readonly IOrderService _orderService;
+        private readonly IDiscussionService _orderService;
         private readonly List<Discussion> _allOrders;
         private readonly int _discussionId;
         private readonly string subject;
@@ -24,9 +24,9 @@ namespace RxWebApp.Controllers
         private readonly string _outcome;
         private readonly DateTime _discussionDate = DateTime.Now;
 
-        public OrdersController()
+        public DiscussionController()
         {
-            _orderService = IoC.Instance.Resolve<IOrderService>();
+            _orderService = IoC.Instance.Resolve<IDiscussionService>();
             IoC.Instance.Resolve<IOfferService>();
             _allOrders = new List<Discussion>();
         }

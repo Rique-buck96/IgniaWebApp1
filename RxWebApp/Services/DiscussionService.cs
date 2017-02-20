@@ -8,15 +8,15 @@ using RxWebApp.Extensions;
 
 namespace RxWebApp.Services
 {
-    internal sealed class OrderService : IOrderService
+    internal sealed class DiscussionService : IDiscussionService
     {
-        private readonly Dictionary<int, Discussion> _allOrders;
-        private readonly IDiscussionRepository _orderRepository;
+        private readonly Dictionary<int, Discussion> _allDiscussions;
+        private readonly IDiscussionRepository _discussionRepository;
 
-        public OrderService(IDiscussionRepository orderRepository)
+        public DiscussionService(IDiscussionRepository discussionRepository)
         {
-            _allOrders = new Dictionary<int, Discussion>();
-            _orderRepository = orderRepository;
+            _allDiscussions = new Dictionary<int, Discussion>();
+            _discussionRepository = discussionRepository;
 
             // Populate with dummy orders
             //Observable.Range(0, 10)
@@ -30,49 +30,50 @@ namespace RxWebApp.Services
 
         public IObservable<IEnumerable<Discussion>> GetAllOrders()
         {
-            return Observable.Return(_allOrders.Values);
+            return Observable.Return(_allDiscussions.Values);
         }
 
         public IObservable<IEnumerable<Discussion>> GetAllOrders(IScheduler scheduler)
         {
-            return Observable.Return(_allOrders.Values, scheduler);
+            return Observable.Return(_allDiscussions.Values, scheduler);
         }
 
         #region CRUD
 
         public IObservable<Discussion> CreateDiscussion(int discussionId, string subject, string location, string employee, string outcome, DateTime discussionDate)
         {
-            return _orderRepository
+            return _discussionRepository
                 .CreateDiscussion(discussionId, subject, location, employee, outcome, discussionDate)
                 .Select(dbOrder => dbOrder.ToObject())
-                .Do(order => _allOrders.Add(order.DiscussionId, order));
+                .Do(order => _allDiscussions.Add(order.DiscussionId, order));
+
         }
 
         public IObservable<Discussion> CreateDiscussion(int discussionId, string subject, string location, string employee, string outcome, DateTime discussionDate, IScheduler scheduler)
         {
-            return _orderRepository
+            return _discussionRepository
                 .CreateDiscussion(discussionId, subject, location, employee, outcome, discussionDate, scheduler)
                 .Select(dbOrder => dbOrder.ToObject())
-                .Do(order => _allOrders.Add(order.DiscussionId, order));
+                .Do(order => _allDiscussions.Add(order.DiscussionId, order));
         }
 
         public IObservable<Unit> DeleteOrder(int orderId)
         {
-            return _orderRepository
+            return _discussionRepository
                 .DeleteOrder(orderId)
                 .Do(_ =>
                 {
-                    _allOrders.Remove(orderId);
+                    _allDiscussions.Remove(orderId);
                 });
         }
 
         public IObservable<Unit> DeleteOrder(int orderId, IScheduler scheduler)
         {
-            return _orderRepository
+            return _discussionRepository
                 .DeleteOrder(orderId, scheduler)
                 .Do(_ =>
                 {
-                    _allOrders.Remove(orderId);
+                    _allDiscussions.Remove(orderId);
                 });
         }
 

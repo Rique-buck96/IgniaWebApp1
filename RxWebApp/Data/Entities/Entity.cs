@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace RxWebApp.Data.Entities
 {
@@ -32,7 +34,27 @@ namespace RxWebApp.Data.Entities
 
         public void BeginTransaction()
         {
-            throw new NotImplementedException();
+            string constr = ConfigurationManager.ConnectionStrings["DiscussionEntityModel"].ConnectionString;
+            using (SqlConnection cn = new SqlConnection(constr))
+            {
+                string query =
+                    "INSERT INTO Discussion(Subject, Location, Employee, Outcome, DiscussionDate) VALUES (@Subject, @Location, @Employee, @Outcome, @DiscussionDate)";
+                query += " SELECT SCOPE_IDENTITY()";
+                using (var cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = cn;
+                    cn.Open();
+
+                    cmd.Parameters.AddWithValue("@Subject", Sub);
+                    cmd.Parameters.AddWithValue("@Location", Loc);
+                    cmd.Parameters.AddWithValue("@Employee", Emp);
+                    cmd.Parameters.AddWithValue("@Outcome", Out);
+                    cmd.Parameters.AddWithValue("@DiscussionDate", Created.ToShortDateString());
+                    Id = Convert.ToInt32(cmd.ExecuteScalar());
+                    cn.Close();
+
+                }
+            }
         }
 
         public void Commit()

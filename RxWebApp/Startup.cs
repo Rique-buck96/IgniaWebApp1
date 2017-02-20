@@ -14,7 +14,7 @@ namespace RxWebApp
             IoC.Instance.Register<IDataContextFactory, WebDataContextFactory>();
             IoC.Instance.Register<IDiscussionRepository, DiscussionRepository>();
             IoC.Instance.Register<IOfferRepository, OfferRepository>();
-            IoC.Instance.Register<IOrderService, OrderService>();
+            IoC.Instance.Register<IDiscussionService, DiscussionService>();
             IoC.Instance.Register<IOfferService, OfferService>();
         }
     }

@@ -1,7 +1,7 @@
-﻿@model RxWebApp.ViewModels.OrdersViewModel
+﻿@model RxWebApp.ViewModels.DiscussionsViewModel
 
 @{
-    ViewBag.Title = "Orders";
+    ViewBag.Title = "Discussions";
 }
 
 
@@ -9,7 +9,7 @@
     <div class="row">
         <div class="text-center col-lg-12">
             <h2>Orders</h2>
-            @using (Html.BeginForm("Create", "Orders", FormMethod.Post))
+            @using (Html.BeginForm("Create", "Discussion", FormMethod.Post))
             {
                 <form method="post">
                     <fieldset class="form-group">
@@ -40,8 +40,6 @@
 @if (Model != null && Model.AllOrders.Count != 0)
 {
     <table class="table">
-    @foreach (var item in Model.AllOrders)
-    {
         <thead>List of Discussions</thead>
         <tr>
             <th>Subject</th>
@@ -50,31 +48,34 @@
             <th>Outcome</th>
             <th>Discussion Date</th>
         </tr>
-        <tr>
-            
-            <td>
+        @foreach (var item in Model.AllOrders)
+        {
 
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            
-            <td>
+            <tr>
 
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee)
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Outcome)
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscussionDate)
-            </td>
-        </tr>
-    }
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Outcome)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscussionDate)
+                </td>
+            </tr>
+        }
     </table>
 }
 else

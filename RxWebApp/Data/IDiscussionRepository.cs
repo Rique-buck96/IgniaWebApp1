@@ -6,11 +6,11 @@ using RxWebApp.Data.Entities;
 
 namespace RxWebApp.Data
 {
-    internal interface IDiscussionRepository : IEntityRepository<OrderEntity>
+    internal interface IDiscussionRepository : IEntityRepository<DiscussionEntity>
     {
-        IObservable<OrderEntity> CreateDiscussion(int discussionId, string subject, string location, string employee, string outcome, DateTime discussionDate);
+        IObservable<DiscussionEntity> CreateDiscussion(int discussionId, string subject, string location, string employee, string outcome, DateTime discussionDate);
 
-        IObservable<OrderEntity> CreateDiscussion(int discussionId, string subject, string location, string employee, string outcome, DateTime discussionDate, IScheduler scheduler);
+        IObservable<DiscussionEntity> CreateDiscussion(int discussionId, string subject, string location, string employee, string outcome, DateTime discussionDate, IScheduler scheduler);
 
         IObservable<Unit> DeleteOrder(int orderId);
 

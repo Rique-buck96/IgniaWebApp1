@@ -2,7 +2,7 @@
 
 namespace RxWebApp.Data.Entities
 {
-    internal class OrderEntity : Entity
+    internal class DiscussionEntity : Entity
     {
         public decimal Price { get; set; }
 

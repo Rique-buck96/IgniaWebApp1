@@ -6,7 +6,7 @@ using RxWebApp.Data;
 
 namespace RxWebApp.Services
 {
-    internal interface IOrderService
+    internal interface IDiscussionService
     {
         IObservable<IEnumerable<Discussion>> GetAllOrders(IScheduler scheduler);
         IObservable<IEnumerable<Discussion>> GetAllOrders();
